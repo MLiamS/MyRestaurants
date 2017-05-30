@@ -64,8 +64,7 @@ public class RestaurantsActivity extends AppCompatActivity {
                     public void run() {
                         mAdapter = new RestaurantListAdapter(getApplicationContext(), mRestaurants);
                         mRecyclerView.setAdapter(mAdapter);
-                        RecyclerView.LayoutManager layoutManager =
-                                new LinearLayoutManager(RestaurantsActivity.this);
+                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(RestaurantsActivity.this);
                         mRecyclerView.setLayoutManager(layoutManager);
                         mRecyclerView.setHasFixedSize(true);
                     }
