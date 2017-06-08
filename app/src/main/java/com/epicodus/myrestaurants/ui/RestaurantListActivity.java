@@ -82,6 +82,7 @@ public class RestaurantListActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 return false;
             }
+
         });
 
         return true;
@@ -112,7 +113,8 @@ public class RestaurantListActivity extends AppCompatActivity {
                     public void run() {
                         mAdapter = new RestaurantListAdapter(getApplicationContext(), mRestaurants);
                         mRecyclerView.setAdapter(mAdapter);
-                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(RestaurantListActivity.this);
+                        RecyclerView.LayoutManager layoutManager =
+                                new LinearLayoutManager(RestaurantListActivity.this);
                         mRecyclerView.setLayoutManager(layoutManager);
                         mRecyclerView.setHasFixedSize(true);
                     }
@@ -126,4 +128,3 @@ public class RestaurantListActivity extends AppCompatActivity {
     }
 
 }
-
