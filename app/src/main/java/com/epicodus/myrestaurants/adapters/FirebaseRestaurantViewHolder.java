@@ -30,23 +30,21 @@ import java.util.ArrayList;
  */
 
 
-public class FirebaseRestaurantViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class FirebaseRestaurantViewHolder extends RecyclerView.ViewHolder {
     private static final int MAX_WIDTH = 200;
     private static final int MAX_HEIGHT = 200;
-    public ImageView mRestaurantImageView;
 
     View mView;
     Context mContext;
+    public ImageView mRestaurantImageView;
 
     public FirebaseRestaurantViewHolder(View itemView) {
         super(itemView);
         mView = itemView;
         mContext = itemView.getContext();
-        itemView.setOnClickListener(this);
     }
 
     public void bindRestaurant(Restaurant restaurant) {
-
         mRestaurantImageView = (ImageView) mView.findViewById(R.id.restaurantImageView);
         TextView nameTextView = (TextView) mView.findViewById(R.id.restaurantNameTextView);
         TextView categoryTextView = (TextView) mView.findViewById(R.id.categoryTextView);
@@ -61,35 +59,5 @@ public class FirebaseRestaurantViewHolder extends RecyclerView.ViewHolder implem
         nameTextView.setText(restaurant.getName());
         categoryTextView.setText(restaurant.getCategories().get(0));
         ratingTextView.setText("Rating: " + restaurant.getRating() + "/5");
-    }
-
-    @Override
-    public void onClick(View view) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = user.getUid();
-        Log.d("User-ID", uid);
-        final ArrayList<Restaurant> restaurants = new ArrayList<>();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_RESTAURANTS).child(uid);
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    restaurants.add(snapshot.getValue(Restaurant.class));
-                }
-
-                int itemPosition = getLayoutPosition();
-
-                Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
-                intent.putExtra("position", itemPosition + "");
-                intent.putExtra("restaurants", Parcels.wrap(restaurants));
-
-                mContext.startActivity(intent);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
     }
 }
