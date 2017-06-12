@@ -1,5 +1,7 @@
 package com.epicodus.myrestaurants.adapters;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +14,7 @@ import com.epicodus.myrestaurants.Constants;
 import com.epicodus.myrestaurants.R;
 import com.epicodus.myrestaurants.models.Restaurant;
 import com.epicodus.myrestaurants.ui.RestaurantDetailActivity;
+import com.epicodus.myrestaurants.util.ItemTouchHelperViewHolder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +33,7 @@ import java.util.ArrayList;
  */
 
 
-public class FirebaseRestaurantViewHolder extends RecyclerView.ViewHolder {
+public class FirebaseRestaurantViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder{
     private static final int MAX_WIDTH = 200;
     private static final int MAX_HEIGHT = 200;
 
@@ -59,5 +62,22 @@ public class FirebaseRestaurantViewHolder extends RecyclerView.ViewHolder {
         nameTextView.setText(restaurant.getName());
         categoryTextView.setText(restaurant.getCategories().get(0));
         ratingTextView.setText("Rating: " + restaurant.getRating() + "/5");
+    }
+
+    @Override
+    public void onItemSelected() {
+            AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(mContext,
+                    R.animator.drag_scale_on);
+            set.setTarget(itemView);
+            set.start();
+        }
+
+
+    @Override
+    public void onItemClear() {
+        AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(mContext,
+                R.animator.drag_scale_off);
+        set.setTarget(itemView);
+        set.start();
     }
 }
