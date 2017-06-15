@@ -5,10 +5,6 @@ import org.parceler.Parcel;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Guest on 5/30/17.
- */
-
 @Parcel
 public class Restaurant {
     String name;
@@ -23,9 +19,12 @@ public class Restaurant {
     private String pushId;
     String index;
 
+    // empty constructor needed by the Parceler library:
     public Restaurant() {}
 
-    public Restaurant(String name, String phone, String website, double rating, String imageUrl, ArrayList<String> address, double latitude, double longitude, ArrayList<String> categories) {
+    public Restaurant(String name, String phone, String website,
+                      double rating, String imageUrl, ArrayList<String> address,
+                      double latitude, double longitude, ArrayList<String> categories) {
         this.name = name;
         this.phone = phone;
         this.website = website;
@@ -47,14 +46,14 @@ public class Restaurant {
     }
 
     public String getWebsite() {
-        return website;
+        return  website;
     }
 
     public double getRating() {
         return rating;
     }
 
-    public String getImageUrl() {
+    public String getImageUrl(){
         return imageUrl;
     }
 
@@ -79,17 +78,18 @@ public class Restaurant {
         return largeImageUrl;
     }
 
-    public String getPushId()  {
+    public String getPushId(){
         return pushId;
     }
 
-    public void setPushId(String pushId) {
+    public void setPushId(String pushId){
         this.pushId = pushId;
     }
 
-    public String getIndex()  {
+    public String getIndex() {
         return index;
     }
+
     public void setIndex(String index) {
         this.index = index;
     }
