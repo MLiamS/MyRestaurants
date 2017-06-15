@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MotionEventCompat;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -45,7 +46,7 @@ public class FirebaseRestaurantListAdapter extends FirebaseRecyclerAdapter<Resta
         mRef = ref.getRef();
         mOnStartDragListener = onStartDragListener;
         mContext = context;
-
+        Log.d("starts", "FirebaseRestaurantListAdapter: starts");
         mChildEventListener = mRef.addChildEventListener(new ChildEventListener() {
 
             @Override
@@ -115,7 +116,7 @@ public class FirebaseRestaurantListAdapter extends FirebaseRecyclerAdapter<Resta
 
     }
 
-    private void createDetailFragment(int position){
+    private void createDetailFragment(int position) {
         RestaurantDetailFragment detailFragment = RestaurantDetailFragment.newInstance(mRestaurants, position, Constants.SOURCE_SAVED);
         FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.restaurantDetailContainer, detailFragment);
@@ -139,8 +140,7 @@ public class FirebaseRestaurantListAdapter extends FirebaseRecyclerAdapter<Resta
         for (Restaurant restaurant : mRestaurants) {
             int index = mRestaurants.indexOf(restaurant);
             DatabaseReference ref = getRef(index);
-            restaurant.setIndex(Integer.toString(index));
-            ref.setValue(restaurant);
+            ref.child("index").setValue(Integer.toString(index));
         }
     }
 
